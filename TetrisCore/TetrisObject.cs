@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TetrisGUI
+namespace TetrisCore
 {
-    abstract class TetrisObject
+    public class TetrisObject
     {
         int[,] container = new int[3, 3];
     }

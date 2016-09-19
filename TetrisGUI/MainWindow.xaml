@@ -15,11 +15,12 @@
         <Grid.RowDefinitions/>
 
         <UniformGrid x:Name="board" Grid.Column="0">
+            <local:ucBoard/>
 
         </UniformGrid>
 
         <StackPanel x:Name="controlPanel" Orientation="Vertical" Width="100" Grid.Column="1" VerticalAlignment="Center">
-            <Label x:Name="testLabel"/>
+            <Label x:Name="testLabel" Content="Something"/>
             <Button x:Name="testButton" Height="20" Content="Click ME!!!" Click="doSomething"/>
         </StackPanel>
        

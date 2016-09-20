@@ -20,8 +20,8 @@ namespace TetrisGUI
     /// </summary>
     public partial class ucBoard : UserControl
     {
-        public const int GRID_SIZE = 20;
-        private Rectangle[,] _board = new Rectangle[GRID_SIZE, GRID_SIZE];
+        private Rectangle[,] _board;
+        private int _gridSize;
 
         public ucBoard()
         {
@@ -29,23 +29,32 @@ namespace TetrisGUI
             drawBoard();
         }
 
-        public Rectangle[,] Grid
+
+        public void initializeBoard(int gridSize)
+        {
+            _gridSize = gridSize;
+            _board = new Rectangle[gridSize, gridSize];
+            drawBoard();
+        }
+
+
+        public Rectangle[,] Board
         {
             get { return _board; }
-            set { _board = value; }
+            set { _board = value; } //Dont know if this is neccessary
         }
 
         public void drawBoard()
         {
-            board.Columns = GRID_SIZE;
-            board.Rows = GRID_SIZE;
+            board.Columns = _gridSize;
+            board.Rows = _gridSize;
             board.Width = Double.NaN;
             board.Height = Double.NaN;
 
             //populate grid
-            for (int x = 0; x < GRID_SIZE; x++)
+            for (int x = 0; x < _gridSize; x++)
             {
-                for (int y = 0; y < GRID_SIZE; y++)
+                for (int y = 0; y < _gridSize; y++)
                 {
                     Rectangle r = _board[x, y];
 
@@ -54,12 +63,30 @@ namespace TetrisGUI
                     r.StrokeThickness = 2;
                     //r.Width = CELL_SIZE;
                     //r.Height = CELL_SIZE;
-                    //r.Fill = Brushes.Blue;
 
                     _board[x, y] = r;
                     board.Children.Add(r);
                 }
             }
+        }
+
+        public void UpdateBoard()
+        {
+            board.Children.RemoveRange(0, _gridSize * _gridSize);
+            for (int x = 0; x < _gridSize; x++)
+            {
+                for (int y = 0; y < _gridSize; y++)
+                {
+                    Rectangle r = _board[x, y];
+                    board.Children.Add(r);
+                }
+            }
+        }
+
+        public void ChangeTile(int row, int column)
+        {
+            _board[10, 10].Fill = Brushes.AliceBlue;
+            UpdateBoard();
         }
 
     }

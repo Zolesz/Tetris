@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <UniformGrid x:Name="board" Grid.Column="0">
+    <UniformGrid x:Name="board">
 
     </UniformGrid>
 </UserControl>

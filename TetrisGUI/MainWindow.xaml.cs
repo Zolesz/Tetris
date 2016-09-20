@@ -14,22 +14,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TetrisCore;
+using TetrisGUI.TetrisObjects;
 
 namespace TetrisGUI
 {
 
     public partial class MainWindow : Window
     {
+        ucBoard _ucBoard = new ucBoard();
 
         public MainWindow()
         {
             InitializeComponent();
+            _ucBoard.initializeBoard(20);
         }
 
         public void doSomething(object sender, RoutedEventArgs e)
         {
-            testLabel.Content = "Changed";
-            MessageBox.Show("Good boy");
+            _ucBoard.ChangeTile(10, 10);
         }
 
     }

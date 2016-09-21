@@ -75,6 +75,7 @@
     <Compile Include="TetrisObjects\ShapeL.cs" />
     <Compile Include="TetrisObjects\ShapeO.cs" />
     <Compile Include="TetrisObjects\ShapeT.cs" />
+    <Compile Include="Tile.cs" />
     <Compile Include="ucBoard.xaml.cs">
       <DependentUpon>ucBoard.xaml</DependentUpon>
     </Compile>
@@ -86,7 +87,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Board.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

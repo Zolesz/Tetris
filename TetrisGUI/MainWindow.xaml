@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="800">
+        Title="MainWindow" Height="700" Width="800" Loaded="Window_Loaded">
 
     <Grid x:Name="topContainer">
         <Grid.ColumnDefinitions>
@@ -15,7 +15,7 @@
         <Grid.RowDefinitions/>
 
         <UniformGrid x:Name="board" Grid.Column="0">
-            <local:ucBoard/>
+            <local:ucBoard x:Name="tBoard"/>
 
         </UniformGrid>
 

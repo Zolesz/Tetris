@@ -21,18 +21,21 @@ namespace TetrisGUI
 
     public partial class MainWindow : Window
     {
-        ucBoard _ucBoard = new ucBoard();
 
         public MainWindow()
         {
             InitializeComponent();
-            _ucBoard.initializeBoard(20);
         }
 
         public void doSomething(object sender, RoutedEventArgs e)
         {
-            _ucBoard.ChangeTile(10, 10);
+            testLabel.Content = "doSomething called";
+            tBoard.drawTetrisObject(0,0);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tBoard.initializeBoard(20);
+        }
     }
 }

@@ -10,14 +10,27 @@ namespace TetrisGUI.TetrisObjects
     {
         public ShapeT(int x, int y) : base(x, y) { }
 
-        int[,] shapeT = new int[4, 4] { {0, 0, 0, 0 },
+        int[,] matrix = new int[4, 4] { {0, 0, 0, 0 },
                                         {0, 0, 0, 0 },
                                         {0, 1, 0, 0 },
                                         {1, 1, 1, 0 }};
 
+        public int[,] Matrix
+        {
+            get
+            {
+                return matrix;
+            }
+        }
+
         public int[] GetCoords()
         {
-            return new int[2] { base._coordinateX*20, base._coordinateY*20 };
+            return new int[2] { base._coordinateX, base._coordinateY };
+        }
+
+        public void drawObject()
+        {
+            
         }
     }
 }

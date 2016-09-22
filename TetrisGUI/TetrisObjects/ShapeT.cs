@@ -6,26 +6,34 @@ using System.Threading.Tasks;
 
 namespace TetrisGUI.TetrisObjects
 {
-    class ShapeT : TetrisObjects.TetrisObject
+    public class ShapeT : TetrisObject
     {
+        public ShapeT() { }
         public ShapeT(int x, int y) : base(x, y) { }
 
-        int[,] matrix = new int[4, 4] { {0, 0, 0, 0 },
+        int[,] _matrix = new int[4, 4] { {0, 0, 0, 0 },
                                         {0, 0, 0, 0 },
                                         {0, 1, 0, 0 },
                                         {1, 1, 1, 0 }};
 
+
+
         public int[,] Matrix
         {
-            get
-            {
-                return matrix;
-            }
+            get { return _matrix; }
+            private set { _matrix = value; }
         }
 
-        public int[] GetCoords()
+        public int X
         {
-            return new int[2] { base._coordinateX, base._coordinateY };
+            get { return _coordinateX; }
+            set { _coordinateX = value; }
+        }
+
+        public int Y
+        {
+            get { return _coordinateY; }
+            set { _coordinateY = value; }
         }
 
         public void drawObject()

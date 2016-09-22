@@ -22,15 +22,18 @@ namespace TetrisGUI
     public partial class MainWindow : Window
     {
 
+        public ShapeT test = new ShapeT();
+
         public MainWindow()
         {
             InitializeComponent();
+            controlPanel.DataContext = test;
         }
 
         public void doSomething(object sender, RoutedEventArgs e)
         {
-            testLabel.Content = "doSomething called";
-            tBoard.drawTetrisObject(0,0);
+            labelTest.Content = "doSomething called";
+            tBoard.drawTetrisObject(test);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

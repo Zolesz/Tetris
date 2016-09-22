@@ -11,7 +11,9 @@ namespace TetrisGUI.TetrisObjects
     {
         //Should i use property here?
         protected int _coordinateX, _coordinateY;
+        public static int _matrixDim = 4;
 
+        public TetrisObject() { }
         public TetrisObject(int x, int y)
         {
             _coordinateX = x;

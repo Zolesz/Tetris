@@ -84,27 +84,52 @@ namespace TetrisGUI
             UpdateBoard();
         }
 
-        public void drawTetrisObject(int x, int y)
+        //Have to rethink this
+        public void drawTetrisObject(ShapeT input)
         {
-            if(x > _gridSize || x < 0 || y < 0 || y > _gridSize)
+            if (input.X > _gridSize || input.X < 0 || input.Y < -4 || input.Y > _gridSize - 4)
             {
                 throw new Exception("x or y coordinate is out of bound");
             }
 
-            ShapeT testObject = new ShapeT(x,y);
+            clearBoard();
+
+            int tileRow = 0;
+            //int tileCol = 0;
+            bool entered = false;
+            ShapeT testObject = input;
+
             //testObject.drawObject();
-            for (int i = 0; i < 4; i++)
+
+            for (int i = 0; i < TetrisObject._matrixDim; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < TetrisObject._matrixDim; j++)
                 {
-                    if(testObject.Matrix[i,j] == 1)
+                    if(testObject.Matrix[i, j] == 1)
                     {
-                        //TODO
-                        _board[x, y].Fill = Brushes.Black;
+                        if (tileRow + input.Y >= 0 && tileRow + input.Y < _gridSize)
+                            _board[tileRow + input.Y, j + input.X].Fill = Brushes.Black;
+                        entered = true;
                     }
                 }
+                if (entered)
+                {
+                    tileRow++;
+                }
             }
+
             UpdateBoard();
+        }
+
+        public void clearBoard()
+        {
+            for(int i = 0; i < _gridSize; i++)
+            {
+                for(int j = 0; j < _gridSize; j++)
+                {
+                    _board[i, j].Fill = Brushes.White;
+                }
+            }
         }
 
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace TetrisGUI
 {
+    //store relative position, and  store tetrisobjects in a list
     class Tile : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -7,9 +7,41 @@ using System.Threading.Tasks;
 
 namespace TetrisGUI
 {
-    //store relative position, and  store tetrisobjects in a list
-    class Tile : INotifyPropertyChanged
+    public class Tile
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        private int _relativeX, _relativeY;
+
+        public int RelativeX
+        {
+            get
+            {
+                return _relativeX;
+            }
+
+            set
+            {
+                _relativeX = value;
+            }
+        }
+
+        public int RelativeY
+        {
+            get
+            {
+                return _relativeY;
+            }
+
+            set
+            {
+                _relativeY = value;
+            }
+        }
+
+        public Tile(int relativeX, int relativeY)
+        {
+            RelativeX = relativeX;
+            RelativeY = relativeY;
+        }
+
     }
 }

@@ -21,9 +21,9 @@
 
         <StackPanel x:Name="controlPanel" Orientation="Vertical" Width="100" Grid.Column="1" VerticalAlignment="Center">
             <Label x:Name="labelRow" Content="Row"/>
-            <TextBox x:Name="textBoxRow" HorizontalAlignment="Left" Height="22" Text="{Binding Y, Mode=TwoWay}" Width="100"/>
+            <TextBox x:Name="textBoxRow" HorizontalAlignment="Left" Height="22" Text="{Binding CoordinateY, Mode=TwoWay}" Width="100"/>
             <Label x:Name="labelCol" Content="Column"/>
-            <TextBox x:Name="textBoxColumn" HorizontalAlignment="Left" Height="22" Text="{Binding X, Mode=TwoWay}" Width="100"/>
+            <TextBox x:Name="textBoxColumn" HorizontalAlignment="Left" Height="22" Text="{Binding CoordinateX, Mode=TwoWay}" Width="100"/>
             <Label x:Name="labelTest" Content="Debug Info"/>
             <Button x:Name="testButton" Height="20" Content="Click ME!!!" Click="doSomething"/>
         </StackPanel>

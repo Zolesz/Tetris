@@ -17,15 +17,25 @@ using TetrisGUI.TetrisObjects;
 
 namespace TetrisGUI
 {
-    /// <summary>
-    /// Interaction logic for ucBoard.xaml
-    /// </summary>
     public partial class ucBoard : UserControl
     {
-        enum eTetrisObjects { shapeI, shapeL, shapeO, shapeT };
+        public const int GRID_SIZE = 20;
+
         private Rectangle[,] _board;
-        //private  _board;
-        private int _gridSize;
+        private TetrisObject _currentTetrisObject;
+
+        public TetrisObject CurrentTetrisObject
+        {
+            get
+            {
+                return _currentTetrisObject;
+            }
+
+            set
+            {
+                _currentTetrisObject = value;
+            }
+        }
 
         public ucBoard()
         {
@@ -33,24 +43,23 @@ namespace TetrisGUI
         }
 
 
-        public void initializeBoard(int gridSize)
+        public void initializeBoard()
         {
-            _gridSize = gridSize;
-            _board = new Rectangle[gridSize, gridSize];
+            _board = new Rectangle[GRID_SIZE, GRID_SIZE];
             drawBoard();
         }
 
         public void drawBoard()
         {
-            board.Columns = _gridSize;
-            board.Rows = _gridSize;
+            board.Columns = GRID_SIZE;
+            board.Rows = GRID_SIZE;
             board.Width = Double.NaN;
             board.Height = Double.NaN;
 
             //populate grid
-            for (int x = 0; x < _gridSize; x++)
+            for (int x = 0; x < GRID_SIZE; x++)
             {
-                for (int y = 0; y < _gridSize; y++)
+                for (int y = 0; y < GRID_SIZE; y++)
                 {
                     Rectangle r = _board[x, y];
 
@@ -69,9 +78,9 @@ namespace TetrisGUI
         public void UpdateBoard()
         {
             board.Children.Clear();
-            for (int x = 0; x < _gridSize; x++)
+            for (int x = 0; x < GRID_SIZE; x++)
             {
-                for (int y = 0; y < _gridSize; y++)
+                for (int y = 0; y < GRID_SIZE; y++)
                 {
                     board.Children.Add(_board[x, y]);
                 }
@@ -84,38 +93,15 @@ namespace TetrisGUI
             UpdateBoard();
         }
 
-        //Have to rethink this
-        public void drawTetrisObject(ShapeT input)
+        public void drawTetrisObject()
         {
-            if (input.X > _gridSize || input.X < 0 || input.Y < -4 || input.Y > _gridSize - 4)
-            {
-                throw new Exception("x or y coordinate is out of bound");
-            }
-
             clearBoard();
 
-            int tileRow = 0;
-            //int tileCol = 0;
-            bool entered = false;
-            ShapeT testObject = input;
-
-            //testObject.drawObject();
-
-            for (int i = 0; i < TetrisObject._matrixDim; i++)
+            //drawing
+            foreach (Tile t in ShapeT._shape)
             {
-                for (int j = 0; j < TetrisObject._matrixDim; j++)
-                {
-                    if(testObject.Matrix[i, j] == 1)
-                    {
-                        if (tileRow + input.Y >= 0 && tileRow + input.Y < _gridSize)
-                            _board[tileRow + input.Y, j + input.X].Fill = Brushes.Black;
-                        entered = true;
-                    }
-                }
-                if (entered)
-                {
-                    tileRow++;
-                }
+                if(CurrentTetrisObject.CoordinateY - t.RelativeY >= 0 && CurrentTetrisObject.CoordinateX + t.RelativeX >= 0)
+                    _board[CurrentTetrisObject.CoordinateY - t.RelativeY, CurrentTetrisObject.CoordinateX + t.RelativeX].Fill = Brushes.Black;
             }
 
             UpdateBoard();
@@ -123,13 +109,36 @@ namespace TetrisGUI
 
         public void clearBoard()
         {
-            for(int i = 0; i < _gridSize; i++)
+            for(int i = 0; i < GRID_SIZE; i++)
             {
-                for(int j = 0; j < _gridSize; j++)
+                for(int j = 0; j < GRID_SIZE; j++)
                 {
                     _board[i, j].Fill = Brushes.White;
                 }
             }
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Down && CurrentTetrisObject.CoordinateY < GRID_SIZE - 1)
+            {
+                CurrentTetrisObject.CoordinateY++;
+            }
+            else if (e.Key == Key.Up && CurrentTetrisObject.CoordinateY > -ShapeT._height + 1)
+            {
+                CurrentTetrisObject.CoordinateY--;
+            }
+            else if (e.Key == Key.Left && CurrentTetrisObject.CoordinateX > 0)
+            {
+                CurrentTetrisObject.CoordinateX--;
+            }
+            else if (e.Key == Key.Right && CurrentTetrisObject.CoordinateX < GRID_SIZE - ShapeT._width)
+            {
+                CurrentTetrisObject.CoordinateX++;
+            }
+
+            drawTetrisObject();
         }
 
     }

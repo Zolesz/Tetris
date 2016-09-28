@@ -9,15 +9,40 @@ namespace TetrisGUI.TetrisObjects
 {
     public abstract class TetrisObject
     {
-        //Should i use property here?
-        protected int _coordinateX, _coordinateY;
-        public static int _matrixDim = 4;
+        //The bottom left corner of the tetris object
+        private int _coordinateX, _coordinateY;
+
+        public int CoordinateX
+        {
+            get
+            {
+                return _coordinateX;
+            }
+
+            set
+            {
+                _coordinateX = value;
+            }
+        }
+
+        public int CoordinateY
+        {
+            get
+            {
+                return _coordinateY;
+            }
+
+            set
+            {
+                _coordinateY = value;
+            }
+        }
 
         public TetrisObject() { }
         public TetrisObject(int x, int y)
         {
-            _coordinateX = x;
-            _coordinateY = y;
+            CoordinateX = x;
+            CoordinateY = y;
         }
     }
 }

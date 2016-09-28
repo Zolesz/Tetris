@@ -6,39 +6,24 @@ using System.Threading.Tasks;
 
 namespace TetrisGUI.TetrisObjects
 {
+    //include width and height maybe?
     public class ShapeT : TetrisObject
     {
+        public static int _height = 2;
+        public static int _width = 3;
+
+        //Tiles are in rowwise order from the bottom left corner
+        public static LinkedList<Tile> _shape = new LinkedList<Tile>();
+
+        static ShapeT()
+        {
+            _shape.AddLast(new Tile(0, 0));
+            _shape.AddLast(new Tile(1, 0));
+            _shape.AddLast(new Tile(2, 0));
+            _shape.AddLast(new Tile(1, 1));
+        }
         public ShapeT() { }
         public ShapeT(int x, int y) : base(x, y) { }
 
-        int[,] _matrix = new int[4, 4] { {0, 0, 0, 0 },
-                                        {0, 0, 0, 0 },
-                                        {0, 1, 0, 0 },
-                                        {1, 1, 1, 0 }};
-
-
-
-        public int[,] Matrix
-        {
-            get { return _matrix; }
-            private set { _matrix = value; }
-        }
-
-        public int X
-        {
-            get { return _coordinateX; }
-            set { _coordinateX = value; }
-        }
-
-        public int Y
-        {
-            get { return _coordinateY; }
-            set { _coordinateY = value; }
-        }
-
-        public void drawObject()
-        {
-            
-        }
     }
 }

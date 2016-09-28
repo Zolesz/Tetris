@@ -33,12 +33,18 @@ namespace TetrisGUI
         public void doSomething(object sender, RoutedEventArgs e)
         {
             labelTest.Content = "doSomething called";
-            tBoard.drawTetrisObject(test);
+            tBoard.CurrentTetrisObject = test;
+            textBoxRow.Focusable = false;
+            textBoxColumn.Focusable = false;
+            testButton.Focusable = false;
+            tBoard.Focusable = true;
+            FocusManager.SetFocusedElement(this, tBoard);
+            tBoard.drawTetrisObject();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tBoard.initializeBoard(20);
+            tBoard.initializeBoard();
         }
     }
 }

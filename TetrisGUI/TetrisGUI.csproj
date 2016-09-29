@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TetrisObjectGenerator.cs" />
     <Compile Include="TetrisObjects\TetrisObject.cs" />
     <Compile Include="TetrisObjects\ShapeI.cs" />
     <Compile Include="TetrisObjects\ShapeL.cs" />

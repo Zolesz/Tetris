@@ -32,7 +32,17 @@ namespace TetrisGUI
 
         public void doSomething(object sender, RoutedEventArgs e)
         {
-            labelTest.Content = "doSomething called";
+            labelTest.Content = "Game started";
+            initializeGame();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tBoard.initializeBoard();
+        }
+
+        public void initializeGame()
+        {
             tBoard.CurrentTetrisObject = test;
             textBoxRow.Focusable = false;
             textBoxColumn.Focusable = false;
@@ -40,11 +50,8 @@ namespace TetrisGUI
             tBoard.Focusable = true;
             FocusManager.SetFocusedElement(this, tBoard);
             tBoard.drawTetrisObject();
+            tBoard.startGame();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            tBoard.initializeBoard();
-        }
     }
 }

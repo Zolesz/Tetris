@@ -11,6 +11,8 @@ namespace TetrisGUI.TetrisObjects
     {
         //The bottom left corner of the tetris object
         private int _coordinateX, _coordinateY;
+        private int _width;
+        private int _height;
 
         public int CoordinateX
         {
@@ -37,6 +39,35 @@ namespace TetrisGUI.TetrisObjects
                 _coordinateY = value;
             }
         }
+
+        //TODO think of an alternative solution
+        public virtual int Height
+        {
+            get
+            {
+                return _height;
+            }
+
+            set
+            {
+                _height = value;
+            }
+        }
+
+        public virtual int Width
+        {
+            get
+            {
+                return _width;
+            }
+
+            set
+            {
+                _width = value;
+            }
+        }
+
+        public virtual LinkedList<Tile> Shape { get; }
 
         public TetrisObject() { }
         public TetrisObject(int x, int y)

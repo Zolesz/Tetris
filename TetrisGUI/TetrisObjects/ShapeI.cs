@@ -3,17 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TetrisGUI.TetrisObjects;
 
 namespace TetrisGUI.TetrisObjects
 {
-    class ShapeI : TetrisObjects.TetrisObject
+    class ShapeI : TetrisObject
     {
+        //Tiles are in rowwise order from the bottom left corner
+        public static LinkedList<Tile> _shape = new LinkedList<Tile>();
+        private int _height = 4;
+        private int _width = 1;
 
+        public override int Height
+        {
+            get
+            {
+                return _height;
+            }
+        }
+
+        public override int Width
+        {
+            get
+            {
+                return _width;
+            }
+        }
+
+        public override LinkedList<Tile> Shape
+        {
+            get
+            {
+                return ShapeI._shape;
+            }
+        }
+
+        static ShapeI()
+        {
+            _shape.AddLast(new Tile(0, 0));
+            _shape.AddLast(new Tile(0, 1));
+            _shape.AddLast(new Tile(0, 2));
+            _shape.AddLast(new Tile(0, 3));
+        }
+        public ShapeI() { }
         public ShapeI(int x, int y) : base(x, y) { }
 
-        int[,] shapeI = new int[4, 4] { {1, 0, 0, 0 },
-                                        {1, 0, 0, 0 },
-                                        {1, 0, 0, 0 },
-                                        {1, 0, 0, 0 }};
     }
 }

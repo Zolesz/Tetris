@@ -85,11 +85,6 @@ namespace TetrisGUI
             }
         }
 
-        public void ChangeTile(int row, int column)
-        {
-            _board[row, column].Rekt.Fill = Brushes.Brown;
-            UpdateBoard();
-        }
 
         public void drawTetrisObject()
         {
@@ -97,19 +92,18 @@ namespace TetrisGUI
 
             foreach (Tile t in CurrentTetrisObject.Shape)
             {
-                if(CurrentTetrisObject.CoordinateY - t.RelativeY >= 0 && CurrentTetrisObject.CoordinateX + t.RelativeX >= 0)
-                    _board[CurrentTetrisObject.CoordinateY - t.RelativeY, CurrentTetrisObject.CoordinateX + t.RelativeX].Rekt.Fill = Brushes.Black;
+                if (CurrentTetrisObject.Position.Y - t.RelativeCoord.Y >= 0 && CurrentTetrisObject.Position.X + t.RelativeCoord.X >= 0)
+                    _board[(int)(CurrentTetrisObject.Position.Y - t.RelativeCoord.Y), (int)(CurrentTetrisObject.Position.X + t.RelativeCoord.X)].Rekt.Fill = Brushes.Black;
             }
 
             UpdateBoard();
         }
 
-        //TODO dont clear the locked tiles
         public void clearBoard()
         {
-            for(int i = 0; i < GRID_SIZE; i++)
+            for (int i = 0; i < GRID_SIZE; i++)
             {
-                for(int j = 0; j < GRID_SIZE; j++)
+                for (int j = 0; j < GRID_SIZE; j++)
                 {
                     if (!_board[i, j].Locked)
                         _board[i, j].Rekt.Fill = Brushes.White;
@@ -119,43 +113,53 @@ namespace TetrisGUI
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            int tempCoordX = CurrentTetrisObject.CoordinateX;
-            int tempCoordY = CurrentTetrisObject.CoordinateY;
+            int tempCoordX = (int)CurrentTetrisObject.Position.X;
+            int tempCoordY = (int)CurrentTetrisObject.Position.Y;
 
             if (e.Key == Key.Down)
             {
                 tempCoordY++;
+                validateDownMove(tempCoordX, tempCoordY);
             }
-            else if (e.Key == Key.Up)
-            {
-                tempCoordY--;
-            }
+            //else if (e.Key == Key.Up)
+            //{
+            //    tempCoordY--;
+            //}
             else if (e.Key == Key.Left)
             {
                 tempCoordX--;
+                validateLeftMove(tempCoordX, tempCoordY);
             }
             else if (e.Key == Key.Right)
             {
                 tempCoordX++;
+                validateRightMove(tempCoordX, tempCoordY);
             }
-
-            if(isNewPositionValid(tempCoordX, tempCoordY))
+            else
             {
-                CurrentTetrisObject.CoordinateX = tempCoordX;
-                CurrentTetrisObject.CoordinateY = tempCoordY;
-                drawTetrisObject();
-
-                if (isCurrentTetrisObjectLanded())
-                {
-                    lockTiles();
-                    CurrentTetrisObject = _tog.getRandomObject();
-                }
+                return;
             }
+
+            //if (validateMove(tempCoordX, tempCoordY))
+            //{
+            //    CurrentTetrisObject.CoordinateX = tempCoordX;
+            //    CurrentTetrisObject.CoordinateY = tempCoordY;
+            //    drawTetrisObject();
+
+            //    if (isCurrentTetrisObjectLanded())
+            //    {
+            //        lockCurrentTetrisObjectTiles();
+            //        CurrentTetrisObject = _tog.getRandomObject();
+            //    }
+            //}
+
+            //isInsideBorders(tempCoordX, tempCoordY);
         }
 
-        public bool isNewPositionValid(int coordX, int coordY)
+        //split this inside the validate functions?
+        public bool isInsideBorders(int coordX, int coordY)
         {
-            if(coordY > GRID_SIZE -1 || coordY < -CurrentTetrisObject.Height + 1 ||
+            if (coordY > GRID_SIZE - 1 || coordY < -CurrentTetrisObject.Height + 1 ||
                coordX < 0 || coordX > GRID_SIZE - CurrentTetrisObject.Width)
             {
                 return false;
@@ -175,38 +179,63 @@ namespace TetrisGUI
         //TODO rethink this because of code duplication, and possible thread safety problems
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            int tempCoordY = CurrentTetrisObject.CoordinateY;
-            int tempCoordX = CurrentTetrisObject.CoordinateX;
+            int tempCoordY = (int)CurrentTetrisObject.Position.Y;
+            int tempCoordX = (int)CurrentTetrisObject.Position.X;
 
             tempCoordY++;
 
-            if (isNewPositionValid(tempCoordX, tempCoordY))
-            {
-                CurrentTetrisObject.CoordinateX = tempCoordX;
-                CurrentTetrisObject.CoordinateY = tempCoordY;
-                drawTetrisObject();
+            //if (validateMove(tempCoordX, tempCoordY))
+            //{
+            //    CurrentTetrisObject.CoordinateX = tempCoordX;
+            //    CurrentTetrisObject.CoordinateY = tempCoordY;
+            //    drawTetrisObject();
 
-                if (isCurrentTetrisObjectLanded())
-                {
-                    lockTiles();
-                    CurrentTetrisObject = _tog.getRandomObject();
-                }
-            }
+            //    if (isCurrentTetrisObjectLanded())
+            //    {
+            //        lockCurrentTetrisObjectTiles();
+            //        CurrentTetrisObject = _tog.getRandomObject();
+            //    }
+            //}
+
+            validateDownMove(tempCoordX, tempCoordY);
 
         }
 
         public bool isCurrentTetrisObjectLanded()
         {
-            return CurrentTetrisObject.CoordinateY == GRID_SIZE - 1;
+            return CurrentTetrisObject.Position.Y == GRID_SIZE - 1;
         }
 
-        public void lockTiles()
+        public void lockCurrentTetrisObjectTiles()
         {
+            foreach (Tile t in CurrentTetrisObject.Shape)
+            {
+                _board[(int)(CurrentTetrisObject.Position.Y - t.RelativeCoord.Y), (int)(CurrentTetrisObject.Position.X + t.RelativeCoord.X)].Locked = true;
+            }
+        }
+
+        //check borders too
+        //TODO define a center of rotation in each TetrisObject?
+        //TODO define global Coords in Tile?
+
+        public void validateLeftMove(int coordX, int coordY)
+        {
+            //just simply iterate through the block and check if the new position of the tiles is locked or not
             foreach(Tile t in CurrentTetrisObject.Shape)
             {
-                if (CurrentTetrisObject.CoordinateY - t.RelativeY >= 0 && CurrentTetrisObject.CoordinateX + t.RelativeX >= 0)
-                    _board[CurrentTetrisObject.CoordinateY - t.RelativeY, CurrentTetrisObject.CoordinateX + t.RelativeX].Locked = true;
+                //if(CurrentTetrisObject.)
             }
+        }
+
+        public void validateRightMove(int coordX, int coordY)
+        {
+
+        }
+
+        //possible lock here
+        public void validateDownMove(int coordX, int coordY)
+        {
+
         }
 
     }

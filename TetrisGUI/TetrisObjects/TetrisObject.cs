@@ -10,35 +10,9 @@ namespace TetrisGUI.TetrisObjects
     public abstract class TetrisObject
     {
         //The bottom left corner of the tetris object
-        private int _coordinateX, _coordinateY;
+        private Point _position;
         private int _width;
         private int _height;
-
-        public int CoordinateX
-        {
-            get
-            {
-                return _coordinateX;
-            }
-
-            set
-            {
-                _coordinateX = value;
-            }
-        }
-
-        public int CoordinateY
-        {
-            get
-            {
-                return _coordinateY;
-            }
-
-            set
-            {
-                _coordinateY = value;
-            }
-        }
 
         //TODO think of an alternative solution
         public virtual int Height
@@ -69,11 +43,23 @@ namespace TetrisGUI.TetrisObjects
 
         public virtual LinkedList<Tile> Shape { get; }
 
-        public TetrisObject() { }
-        public TetrisObject(int x, int y)
+        public Point Position
         {
-            CoordinateX = x;
-            CoordinateY = y;
+            get
+            {
+                return _position;
+            }
+
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public TetrisObject() { }
+        public TetrisObject(Point p)
+        {
+            _position = p;
         }
     }
 }

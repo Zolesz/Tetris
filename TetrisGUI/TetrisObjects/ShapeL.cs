@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TetrisGUI.TetrisObjects;
 
 namespace TetrisGUI.TetrisObjects
@@ -47,7 +48,7 @@ namespace TetrisGUI.TetrisObjects
             _shape.AddLast(new Tile(0, 3));
         }
         public ShapeL() { }
-        public ShapeL(int x, int y) : base(x, y) { }
+        public ShapeL(Point p) : base(p) { }
 
     }
 }

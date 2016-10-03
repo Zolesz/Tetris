@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TetrisGUI.TetrisObjects;
 
 namespace TetrisGUI
@@ -22,17 +23,18 @@ namespace TetrisGUI
             int rndX = rnd.Next(ucBoard.GRID_SIZE - 3);
             //TODO startY's value should be a variable
             int startY = -2;
+            Point p = new Point(rndX, startY);
 
             switch (rndNum)
             {
                 case 0:
-                    return new ShapeI(rndX, startY);
+                    return new ShapeI(p);
                 case 1:
-                    return new ShapeL(rndX, startY);
+                    return new ShapeL(p);
                 case 2:
-                    return new ShapeO(rndX, startY);
+                    return new ShapeO(p);
                 case 3:
-                    return new ShapeT(rndX, startY);
+                    return new ShapeT(p);
                 default:
                     throw new Exception("Something went wrong during TetrisObject generation");
             }

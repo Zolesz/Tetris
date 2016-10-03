@@ -4,41 +4,17 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace TetrisGUI
 {
     public class Tile
     {
-        private int _relativeX, _relativeY;
+        private Point _relativeCoord;
+        private Point _globalCoord;
         private bool _locked;
         private Rectangle _rekt;
-
-        public int RelativeX
-        {
-            get
-            {
-                return _relativeX;
-            }
-
-            set
-            {
-                _relativeX = value;
-            }
-        }
-
-        public int RelativeY
-        {
-            get
-            {
-                return _relativeY;
-            }
-
-            private set
-            {
-                _relativeY = value;
-            }
-        }
 
         public bool Locked
         {
@@ -61,15 +37,40 @@ namespace TetrisGUI
             }
         }
 
+        public Point RelativeCoord
+        {
+            get
+            {
+                return _relativeCoord;
+            }
+
+            set
+            {
+                _relativeCoord = value;
+            }
+        }
+
+        public Point GlobalCoord
+        {
+            get
+            {
+                return _globalCoord;
+            }
+
+            set
+            {
+                _globalCoord = value;
+            }
+        }
+
         public Tile()
         {
             _rekt = new Rectangle();
         }
 
-        public Tile(int relativeX, int relativeY)
+        public Tile(Point p)
         {
-            RelativeX = relativeX;
-            RelativeY = relativeY;
+            _relativeCoord = p;
             _rekt = new Rectangle();
         }
 

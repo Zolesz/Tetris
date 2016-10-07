@@ -68,9 +68,9 @@ namespace TetrisGUI
             _rekt = new Rectangle();
         }
 
-        public Tile(Point p)
+        public Tile(Point relativeCoord)
         {
-            _relativeCoord = p;
+            _relativeCoord = relativeCoord;
             _rekt = new Rectangle();
         }
 

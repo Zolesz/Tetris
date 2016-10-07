@@ -41,7 +41,7 @@ namespace TetrisGUI.TetrisObjects
             }
         }
 
-        public virtual LinkedList<Tile> Shape { get; }
+        public virtual LinkedList<Tile> Shape { get; set; }
 
         public Point Position
         {

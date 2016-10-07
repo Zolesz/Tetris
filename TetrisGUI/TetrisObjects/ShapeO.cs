@@ -37,14 +37,18 @@ namespace TetrisGUI.TetrisObjects
             {
                 return ShapeO._shape;
             }
+            set
+            {
+                ShapeO._shape = value;
+            }
         }
 
         static ShapeO()
         {
-            _shape.AddLast(new Tile(0, 0));
-            _shape.AddLast(new Tile(1, 0));
-            _shape.AddLast(new Tile(0, 1));
-            _shape.AddLast(new Tile(1, 1));
+            _shape.AddLast(new Tile(new Point(0, 0)));
+            _shape.AddLast(new Tile(new Point(1, 0)));
+            _shape.AddLast(new Tile(new Point(0, 1)));
+            _shape.AddLast(new Tile(new Point(1, 1)));
         }
         public ShapeO() { }
         public ShapeO(Point p) : base(p) { }

@@ -20,21 +20,21 @@ namespace TetrisGUI
         public TetrisObject getRandomObject()
         {
             int rndNum = rnd.Next(4);
-            int rndX = rnd.Next(ucBoard.GRID_SIZE - 3);
+            //int rndX = rnd.Next(ucBoard.GRID_SIZE - 3);
             //TODO startY's value should be a variable
-            int startY = -2;
-            Point p = new Point(rndX, startY);
+            //int startY = -2;
+            //Point p = new Point(rndX, startY);
 
             switch (rndNum)
             {
                 case 0:
-                    return new ShapeI(p);
+                    return new ShapeI();
                 case 1:
-                    return new ShapeL(p);
+                    return new ShapeL();
                 case 2:
-                    return new ShapeO(p);
+                    return new ShapeO();
                 case 3:
-                    return new ShapeT(p);
+                    return new ShapeT();
                 default:
                     throw new Exception("Something went wrong during TetrisObject generation");
             }

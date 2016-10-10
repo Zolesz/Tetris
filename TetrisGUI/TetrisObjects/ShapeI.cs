@@ -45,13 +45,13 @@ namespace TetrisGUI.TetrisObjects
 
         static ShapeI()
         {
-            _shape.AddLast(new Tile(new Point(0, 0)));
-            _shape.AddLast(new Tile(new Point(0, 1)));
-            _shape.AddLast(new Tile(new Point(0, 2)));
-            _shape.AddLast(new Tile(new Point(0, 3)));
+            _shape.AddLast(new Tile(new Point(0, 0), new Point(0, 0)));
+            _shape.AddLast(new Tile(new Point(0, 1), new Point(0, -1)));
+            _shape.AddLast(new Tile(new Point(0, 2), new Point(0, -2)));
+            _shape.AddLast(new Tile(new Point(0, 3), new Point(0, -3)));
         }
         public ShapeI() { }
-        public ShapeI(Point p) : base(p) { }
+        //public ShapeI(Point p) : base(p) { }
 
     }
 }

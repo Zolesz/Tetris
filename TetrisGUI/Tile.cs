@@ -68,11 +68,16 @@ namespace TetrisGUI
             _rekt = new Rectangle();
         }
 
-        public Tile(Point relativeCoord)
+        public Tile(Point relativeCoord, Point globalCoord)
         {
             _relativeCoord = relativeCoord;
+            _globalCoord = globalCoord;
             _rekt = new Rectangle();
         }
 
+        internal Tile Clone()
+        {
+            return new Tile(RelativeCoord, GlobalCoord);
+        }
     }
 }

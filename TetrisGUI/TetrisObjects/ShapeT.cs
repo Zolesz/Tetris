@@ -44,23 +44,23 @@ namespace TetrisGUI.TetrisObjects
 
         static ShapeT()
         {
-            _shape.AddLast(new Tile(new Point(0, 0)));
-            _shape.AddLast(new Tile(new Point(1, 0)));
-            _shape.AddLast(new Tile(new Point(2, 0)));
-            _shape.AddLast(new Tile(new Point(1, 1)));
+            _shape.AddLast(new Tile(new Point(0, 0), new Point(0, 0)));
+            _shape.AddLast(new Tile(new Point(1, 0), new Point(1, 0)));
+            _shape.AddLast(new Tile(new Point(2, 0), new Point(2, 0)));
+            _shape.AddLast(new Tile(new Point(1, 1), new Point(1, -1)));
         }
 
         //default position is 0, 0
         public ShapeT() {
 
         }
-        public ShapeT(Point p) : base(p) {
+        //public ShapeT(Point globalCoord) : base(globalCoord) {
 
-            foreach(Tile t in Shape)
-            {
+        //    foreach(Tile t in Shape)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
     }
 }

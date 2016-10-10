@@ -57,9 +57,9 @@ namespace TetrisGUI.TetrisObjects
         }
 
         public TetrisObject() { }
-        public TetrisObject(Point p)
-        {
-            _position = p;
-        }
+        //public TetrisObject(Point p)
+        //{
+        //    _position = p;
+        //}
     }
 }

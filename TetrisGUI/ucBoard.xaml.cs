@@ -115,7 +115,6 @@ namespace TetrisGUI
 
         private void OnKeyDownHandler(object sender, KeyEventArgs e)
         {
-            //LinkedList<Tile> tmpGlobalCoords = CurrentTetrisObject.Shape;
             LinkedList<Tile> tmpGlobalCoords = new LinkedList<Tile>(CurrentTetrisObject.Shape.Select(x => x.Clone()));
 
 
@@ -127,9 +126,6 @@ namespace TetrisGUI
                     if (t.GlobalCoord.Y > GRID_SIZE - 1)
                         return;
                 }
-                //validateDownMove(tmpGlobalCoords);
-                //if (!isValidDownMove(tmpGlobalCoords))
-                //    return;
 
                 _move = MoveType.Down;
 
@@ -142,9 +138,6 @@ namespace TetrisGUI
                     if (t.GlobalCoord.X < 0)
                         return;
                 }
-                //validateLeftMove(tmpGlobalCoords);
-                //if (!isValidSideWaysMove(tmpGlobalCoords))
-                //    return;
 
                 _move = MoveType.Left;
             }
@@ -156,9 +149,6 @@ namespace TetrisGUI
                     if (t.GlobalCoord.X > GRID_SIZE - 1)
                         return;
                 }
-                //validateRightMove(tmpGlobalCoords);
-                //if (!isValidSideWaysMove(tmpGlobalCoords))
-                //    return;
 
                 _move = MoveType.Right;
             }
@@ -167,18 +157,6 @@ namespace TetrisGUI
                 return;
 
             moveHandler(tmpGlobalCoords);
-        }
-
-        //split this inside the validate functions?
-        public bool isInsideBorders(int coordX, int coordY)
-        {
-            if (coordY > GRID_SIZE - 1 || coordY < -CurrentTetrisObject.Height + 1 ||
-               coordX < 0 || coordX > GRID_SIZE - CurrentTetrisObject.Width)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public void startGame()
@@ -192,8 +170,6 @@ namespace TetrisGUI
         //TODO rethink this because of code duplication, and possible thread safety problems
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            //LinkedList<Tile> tmpGlobalCoords = CurrentTetrisObject.Shape;
-            //LinkedList<Tile> tmpGlobalCoords = new LinkedList<Tile>(CurrentTetrisObject.Shape);
             LinkedList<Tile> tmpGlobalCoords = new LinkedList<Tile>(CurrentTetrisObject.Shape.Select(x => x.Clone()));
 
             foreach (Tile t in tmpGlobalCoords)
@@ -205,7 +181,6 @@ namespace TetrisGUI
 
             _move = MoveType.Down;
 
-            //validateDownMove(tmpGlobalCoords);
             if (!isValidMove(tmpGlobalCoords))
                 return;
 
@@ -227,55 +202,6 @@ namespace TetrisGUI
         }
 
         //TODO define a center of rotation in each TetrisObject?
-
-        //public void validateLeftMove(LinkedList<Tile> newGlobalCoords)
-        //{
-        //    //check if the blocks on the new coords are locked and left wall
-        //    //put this part to a different function? i sense some redundancy here
-        //    foreach (Tile t in newGlobalCoords)
-        //    {
-        //        if (_board[(int)t.GlobalCoord.Y, (int)t.GlobalCoord.X].Locked)
-        //        {
-        //            return;
-        //        }
-        //    }
-
-        //    CurrentTetrisObject.Shape = newGlobalCoords;
-        //    drawTetrisObject();
-        //}
-
-        //public void validateRightMove(LinkedList<Tile> newGlobalCoords)
-        //{
-
-        //    foreach (Tile t in CurrentTetrisObject.Shape)
-        //    {
-        //        if (_board[(int)t.GlobalCoord.Y, (int)(t.GlobalCoord.X)].Locked)
-        //        {
-        //            return;
-        //        }
-        //    }
-
-        //    CurrentTetrisObject.Shape = newGlobalCoords;
-        //    drawTetrisObject();
-
-        //}
-
-        //possible lock here
-        //public void validateDownMove(LinkedList<Tile> newGlobalCoords)
-        //{
-        //    foreach (Tile t in newGlobalCoords)
-        //    {
-        //        if (_board[(int)t.GlobalCoord.Y, (int)t.GlobalCoord.X].Locked || t.GlobalCoord.Y == GRID_SIZE - 1)
-        //        {
-        //            lockCurrentTetrisObjectTiles();
-        //            CurrentTetrisObject = _tog.getRandomObject();
-        //            return;
-        //        }
-        //    }
-
-        //    CurrentTetrisObject.Shape = newGlobalCoords;
-        //    drawTetrisObject();
-        //}
 
         public bool isValidMove(LinkedList<Tile> newGlobalCoords)
         {
